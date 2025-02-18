@@ -38,10 +38,13 @@ package.json
 ```
 #### Important 
 deploy.yml
-Edit 
+
+
+Change the bellow 
 ```html:
         run: npm run build
 ```
+
 To:
 
 ```html:
