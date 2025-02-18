@@ -13,6 +13,9 @@ Currently, two official plugins are available:
 
 ### This example uses GitHub Actions for auto deploy.
 
+#### Source
+#### https://blog.devgenius.io/how-to-deploy-your-vite-react-app-to-github-pages-with-and-without-react-router-b060d912b10e?gi=cd85d0ebb198
+
 
 ## The mainsteps bellow are:
 
