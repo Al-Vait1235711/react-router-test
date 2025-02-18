@@ -17,13 +17,20 @@ Currently, two official plugins are available:
 ## The mainsteps bellow are:
 
 vite.config.js:
-
+```html:
 import { defineConfig } from 'vite'
 import react from '@vitejs/plugin-react'
 
 // https://vite.dev/config/
-```html:
+
 export default defineConfig({
   plugins: [react()],
   base: "/router-test/"
 })
+```
+package.json
+
+```html:
+"homepage": "https://github.com/git-username/repo-url",
+```
+
