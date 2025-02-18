@@ -33,4 +33,14 @@ package.json
 ```html:
 "homepage": "https://github.com/git-username/repo-url",
 ```
+#### Important 
+deploy.yml
+Edit 
+```html:
+        run: npm run build
+```
+To:
 
+```html:
+        run: npm run build && cp ./dist/index.html ./dist/404.html
+```
