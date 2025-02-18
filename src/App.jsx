@@ -10,7 +10,9 @@ function App() {
 
   return (
 
-    <BrowserRouter>
+    <BrowserRouter 
+    basename={import.meta.env.DEV ? '/' : '/router-test/'}
+    >
       <Routes>
         <Route path='/' element={<AppHome />} ></Route>
         <Route path='/about' element={<AppAbout />} ></Route>
