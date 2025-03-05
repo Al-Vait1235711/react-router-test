@@ -5,7 +5,7 @@ import AppHome from './pages/home'
 import AppContact from './pages/contact'
 import AppAbout from './pages/about'
 
-export const projurl = import.meta.env.DEV ? '/' : '/router-test/'
+export const projurl = import.meta.env.DEV ? '/' : '/react-router-test/'
 
 function App() {
 
