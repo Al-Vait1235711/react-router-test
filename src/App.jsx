@@ -12,15 +12,23 @@ function App() {
 
   return (
 
+    <div>
     <BrowserRouter 
     basename={projurl}
     >
+      <head>
+        <ul>
+          <li><a href= {projurl + 'about'}>About</a></li>
+          <li><a href= {projurl + 'contact'}>Contact</a></li>  
+        </ul>
+      </head>
       <Routes>
         <Route path='/' element={<AppHome />} ></Route>
         <Route path='/about' element={<AppAbout />} ></Route>
         <Route path='/contact' element={<AppContact />} ></Route>
       </Routes>
     </BrowserRouter>
+    </div>
   )
 }
 
