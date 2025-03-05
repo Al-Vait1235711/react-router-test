@@ -5,13 +5,15 @@ import AppHome from './pages/home'
 import AppContact from './pages/contact'
 import AppAbout from './pages/about'
 
+export const projurl = import.meta.env.DEV ? '/' : '/router-test/'
+
 function App() {
 
 
   return (
 
     <BrowserRouter 
-    basename={import.meta.env.DEV ? '/' : '/router-test/'}
+    basename={projurl}
     >
       <Routes>
         <Route path='/' element={<AppHome />} ></Route>
