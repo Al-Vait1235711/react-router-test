@@ -1,4 +1,4 @@
-
+import { projurl } from "../App"
 
 
 export default function AppHome(){

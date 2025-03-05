@@ -5,7 +5,8 @@ import AppHome from './pages/home'
 import AppContact from './pages/contact'
 import AppAbout from './pages/about'
 
-export const projurl = import.meta.env.DEV ? '/' : '/react-router-test/'
+// export const projurl = import.meta.env.DEV ? '/' : '/react-router-test/'
+export const projurl = '/react-router-test/'
 
 function App() {
 
@@ -14,8 +15,7 @@ function App() {
 
     <div>
     <BrowserRouter 
-    basename={projurl}
-    >
+    basename={projurl}>
       <Routes>
         <Route path='/' element={<AppHome />} ></Route>
         <Route path='/about' element={<AppAbout />} ></Route>
