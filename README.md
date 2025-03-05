@@ -17,14 +17,16 @@ https://blog.devgenius.io/how-to-deploy-your-vite-react-app-to-github-pages-with
 * Important: all href links on your page should direct to "[github-user]/github.io/[your-repo-name]/"
 
 
-vite.config.js:
+
+
+* vite.config.js:
 ```code:
 export default defineConfig({
   plugins: [react()],
   base: "/[your-repo-name]/"
 })
 ```
-package.json
+* package.json
 
 ```code:
 "homepage": "https://github.com/git-username/[your-repo-name]",
@@ -33,7 +35,7 @@ package.json
 deploy.yml
 
 
-Change the bellow 
+* In actions.yaml change the bellow 
 ```code:
         run: npm run build
 ```
