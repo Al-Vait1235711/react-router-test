@@ -12,20 +12,22 @@ https://blog.devgenius.io/how-to-deploy-your-vite-react-app-to-github-pages-with
 
 * Configure "base" on vite.config.js file
 * Configure "homepage" on package.json file
-* Copy index.html to dist/404.html during build
+* Copy index.html to dist/404.html during build (git-gub-actions.yaml)
+
+* Important: all href links should direct to "[github-user]/github.io/[your-repo-name]/"
 
 
 vite.config.js:
 ```code:
 export default defineConfig({
   plugins: [react()],
-  base: "/router-test/"
+  base: "/[your-repo-name]/"
 })
 ```
 package.json
 
 ```code:
-"homepage": "https://github.com/git-username/repo-url",
+"homepage": "https://github.com/git-username/[your-repo-name]",
 ```
 #### Important 
 deploy.yml
