@@ -22,12 +22,6 @@ function App() {
         <Route path='/contact' element={<AppContact />} ></Route>
       </Routes>
     </BrowserRouter>
-    <header>
-        <ul>
-          <li><a href= {projurl + 'about'}>About</a></li>
-          <li><a href= {projurl + 'contact'}>Contact</a></li>  
-        </ul>
-      </header>
     </div>
   )
 }
