@@ -14,6 +14,13 @@ function App() {
   return (
 
     <div>
+      <nav>
+      <ul style={{marginBottom:"60px"}}>
+          <li style={{display:"inline"}}><a href= {projurl}>Home</a></li>
+          <li style={{display:"inline", marginLeft:"10px"}}><a href= {projurl + 'about'}>About</a></li>
+          <li style={{display:"inline", marginLeft:"10px"}}><a href= {projurl + 'contact'}>Contact</a></li>  
+        </ul>
+      </nav>
     <BrowserRouter 
     basename={projurl}>
       <Routes>
@@ -22,6 +29,7 @@ function App() {
         <Route path='/contact' element={<AppContact />} ></Route>
       </Routes>
     </BrowserRouter>
+
     </div>
   )
 }
