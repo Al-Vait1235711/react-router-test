@@ -31,11 +31,12 @@ export default defineConfig({
 ```code:
 "homepage": "https://github.com/git-username/[your-repo-name]",
 ```
+
+
 #### Important 
-deploy.yml
 
+* In actions.yaml change the bellow
 
-* In actions.yaml change the bellow 
 ```code:
         run: npm run build
 ```
