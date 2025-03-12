@@ -36,15 +36,15 @@ export default function AppHome(){
     </Col>
     <Col sm={4} style={{textAlign:"center", marginBottom:"40px", marginTop:"40px"}}>
     <LoadingBarCircular demo demostep={0.004} size={100} strokeWidth={25} lodFgBarCol={'#03c500'}/>
-    <p style={{marginTop:"20px"}}>Demo 3 progress bar</p>
+    <p style={{marginTop:"20px"}}>Demo 4 progress bar</p>
     </Col>
     <Col sm={4} style={{textAlign:"center", marginBottom:"40px", marginTop:"40px"}}>
     <LoadingBarCircular demo size={120} fontSize={30} demostep={0.002} lodFgBarCol={'#03c500'}/>
-    <p style={{marginTop:"20px"}}>Demo 3 progress bar</p>
+    <p style={{marginTop:"20px"}}>Demo 5 progress bar</p>
     </Col>
     <Col sm={4} style={{textAlign:"center", marginBottom:"40px", marginTop:"40px"}}>
     <LoadingBarCircular demo size={90} demostep={0.003} lodFgBarCol={'#03c500'}/>
-    <p style={{marginTop:"20px"}}>Demo 3 progress bar</p>
+    <p style={{marginTop:"20px"}}>Demo 6 progress bar</p>
     </Col>
   </Row>
         
