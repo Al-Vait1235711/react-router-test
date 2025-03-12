@@ -33,6 +33,9 @@
  * @param {*} props lodFgBarCol: Main color of the bar
  * @param {*} props lodBgBarCol: Background colour of the bar
  * @param {*} props innerFillCol: Inner background fill colour
+ * @param {*} props strokeWidth: 
+ * @param {*} props fonSize: 
+ * @param {*} props fontColor: 
  * Other styling parameters can be added if required :)
  * @returns HTML Element: Circular progress bar with text value in the middle 
  */
