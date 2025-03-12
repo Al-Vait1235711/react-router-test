@@ -94,3 +94,7 @@ body {
   -webkit-transition: all 0.3s linear;
   opacity: 0;
 }
+
+.any{
+  color: #03c500;
+}
