@@ -77,8 +77,8 @@ export default function LoadingBarCircular(props) {
         }
         useEffect(() => {
             const delay = (ms) => new Promise(response => setTimeout(response, ms))
-            const p = async (ms) => (await delay(ms), console.log("Up"), setProg(prog => prog + demostep))
-            const r = async (ms) => (await delay(ms), console.log("Reset"), setProg(0))
+            const p = async (ms) => (await delay(ms), setProg(prog => prog + demostep))
+            const r = async (ms) => (await delay(ms), setProg(0))
 
             if (prog < 1) {
                 p(25)
