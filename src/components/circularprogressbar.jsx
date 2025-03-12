@@ -95,6 +95,10 @@ export default function LoadingBarCircular(props) {
     if (props.fontSize) {
         fontsize = props.fontSize
     }
+    var fontColor = '#000000'
+    if(props.fontColor){
+        fontColor = props.fontColor
+    }
 
     // Loading bar size
     var size = 70
@@ -131,7 +135,7 @@ export default function LoadingBarCircular(props) {
                     cx={halfsize} cy={halfsize} r={radius} fill="none" stroke={lodFgBarCol} strokeLinecap="butt" strokeWidth={strokeWidth}
                     strokeDasharray={some}
                 ></circle>
-                <text style={{ fontSize: `${fontsize}px` }} textAnchor="middle" x={halfsize} y={heightoff}>{textvalue}%</text>
+                <text style={{ fontSize: `${fontsize}px`}} fill={fontColor} textAnchor="middle" x={halfsize} y={heightoff}>{textvalue}%</text>
             </svg>
         </div>
     )
