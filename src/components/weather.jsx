@@ -35,9 +35,15 @@ const cities = [
         city: 'Zagare',
         lat: 56.35835530287238,
         lng: 23.263043968050674
+    },
+    {
+        city: 'Athens',
+        lat: 37.966785872665085,
+        lng: 23.73270658271814
     }
 ]
 
+// Athens 37.966785872665085, 23.73270658271814
 
 // London: 51.501751092528366, -0.11589720240199451
 {/* <iframe src="https://www.google.com/maps/embed?pb=!1m10!1m8!1m3!1d79500.03699093206!2d-0.13872816474227703!3d51.48796437576176!3m2!1i1024!2i768!4f13.1!5e0!3m2!1sen!2suk!4v1741808764998!5m2!1sen!2suk" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe> */ }
