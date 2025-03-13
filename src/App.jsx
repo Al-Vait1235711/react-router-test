@@ -17,18 +17,18 @@ function App() {
 
     <div>
       <header id='header'>
-<HeaderComp/>
-</header>
-<main style={{marginTop:"100px"}}>
-    <BrowserRouter 
-    basename={projurl}>
-      <Routes>
-        <Route path='/' element={<AppHome />} ></Route>
-        <Route path='/about' element={<AppAbout />} ></Route>
-        <Route path='/contact' element={<AppContact />} ></Route>
-      </Routes>
-    </BrowserRouter>
-    </main>
+        <HeaderComp />
+      </header>
+      <main style={{ marginTop: "65px" }}>
+        <BrowserRouter
+          basename={projurl}>
+          <Routes>
+            <Route path='/' element={<AppHome />} ></Route>
+            <Route path='/about' element={<AppAbout />} ></Route>
+            <Route path='/contact' element={<AppContact />} ></Route>
+          </Routes>
+        </BrowserRouter>
+      </main>
     </div>
   )
 }

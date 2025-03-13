@@ -1,9 +1,11 @@
 :root {
   --primary-btn: #007bff;
   --secondary-btn: #6c757d;
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 0.5rem;
+  text-align: center;
 }
-
-
 
 * {
   max-height: 1000000px;
@@ -95,6 +97,40 @@ body {
   opacity: 0;
 }
 
-.any{
-  color: #434343;
+/* Spinner */
+.loader {
+  border: 7px solid #f3f3f3;
+  /* Light grey */
+  border-top: 7px solid #30b806;
+  /* Blue */
+  border-left: 7px solid #30b806;
+  /* Blue */
+
+
+  border-radius: 50%;
+  width: 50px;
+  height: 50px;
+  animation: spin 1s linear infinite;
+  margin: auto;
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+/* END of Spinner*/
+
+.row-marg-top-bott{
+  margin: 10px;
+  border: 1px solid rgba(0, 0, 0, 0.189)
+}
+
+.cont-marg-b20{
+  margin-bottom: 20px;
 }
