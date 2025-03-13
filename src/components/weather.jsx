@@ -25,9 +25,15 @@ const cities = [
         city: 'Vilnius',
         lat: 54.68435171280738,
         lng: 25.275258723758828
+    },
+    {
+        city: 'Tadley',
+        lat: 51.35554821001266,
+        lng: -1.1552680158939466
     }
 ]
 
+// Tadley 51.35554821001266, -1.1552680158939466
 
 // London: 51.501751092528366, -0.11589720240199451
 {/* <iframe src="https://www.google.com/maps/embed?pb=!1m10!1m8!1m3!1d79500.03699093206!2d-0.13872816474227703!3d51.48796437576176!3m2!1i1024!2i768!4f13.1!5e0!3m2!1sen!2suk!4v1741808764998!5m2!1sen!2suk" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe> */ }
