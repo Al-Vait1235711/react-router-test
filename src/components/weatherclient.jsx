@@ -26,7 +26,7 @@ export default function WeatherApiClient(props) {
 
     const getData = async () => {
         try {
-            console.log(apiUrl)
+        
 
             await fetch(apiUrl).then((resp) => {
 
@@ -61,8 +61,7 @@ export default function WeatherApiClient(props) {
 
     }, [apiUrl])
 
-    console.log(data ? data : null)
-    // getData()
+ 
 
 
 
