@@ -93,7 +93,7 @@ export default function WeatherApiClient(props) {
 
 function DdrawWindDir(props) {
 
-    var size = 30
+    var size = 40
     if (props.size) {
         size = props.size
     }
@@ -112,6 +112,7 @@ function DdrawWindDir(props) {
         <svg width={size} height={size} viewBox={`0 0 ${size} ${size}`}>
             {/* <line x1={halfsize - 5} y1={halfsize} x2={halfsize + 5} y2={halfsize} stroke="black" strokeWidth={1} />
             <line x1={halfsize} y1={halfsize - 5} x2={halfsize} y2={halfsize + 5} stroke="black" strokeWidth={1} /> */}
+            <circle cx={halfsize} cy={halfsize}  r={halfsize-1} fill="none" strokeWidth={1} stroke="#5d8f5b"></circle>
 
             <line x1={lineend.x0} y1={lineend.y0} x2={lineend.x1} y2={lineend.y1} stroke="#055f00" strokeWidth={2} strokeLinecap="butt" />
             <polyline points={`${halfsize},${halfsize} ${lineend.p0x},${lineend.p0y} ${lineend.x1},${lineend.y1} ${lineend.p2x},${lineend.p2y} ${halfsize},${halfsize}`} fill="#0be000" stroke="#055f00" strokeWidth={1} />
@@ -123,7 +124,7 @@ function DdrawWindDir(props) {
 
 
 function DrawLine(size, direction) {
-    const l = size - 3  // gives line length - 3. We draw a line from centre of canvas ? fot the start
+    const l = size - 5  // gives line length - 3. We draw a line from centre of canvas ? fot the start
 
     // To draw a line from a given angle
     // We will use:
