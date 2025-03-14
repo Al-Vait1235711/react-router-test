@@ -4,7 +4,7 @@ import Col from 'react-bootstrap/Col';
 import LoadingBarCircular from '../components/circularprogressbar';
 import WeatherApiClient from '../components/weatherclient';
 import WeatherApp from '../components/weather';
-import BezierCurves from '../components/bziercurve';
+// import BezierCurves from '../components/bziercurve';
 
 
 
@@ -72,7 +72,7 @@ export default function AppHome() {
           </Row>
           <Row>
             <Col md={12}>
-              <BezierCurves/>
+              {/* <BezierCurves/> */}
             </Col>
           </Row>
         </Container>
