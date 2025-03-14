@@ -24,6 +24,12 @@ body {
   font-weight: 400;
 }
 
+a:link, a:visited, a:hover {
+  text-decoration: none;
+  color: #011b8f;
+
+}
+
 #header {
   padding: 7px 0;
   position: fixed;
@@ -136,5 +142,5 @@ body {
 }
 
 .somecol{
-  color: #fd7f01;
+  color: #f4ff24;
 }

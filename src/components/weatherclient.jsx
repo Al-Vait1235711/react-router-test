@@ -1,7 +1,9 @@
 import Container from "react-bootstrap/esm/Container"
 import Row from "react-bootstrap/esm/Row"
 import Col from "react-bootstrap/esm/Col"
+import { Collapse } from 'bootstrap'
 import { useEffect, useState } from "react"
+import { LineChart, Line, XAxis, YAxis, AreaChart, Area, CartesianGrid, Tooltip, Legend, ResponsiveContainer } from 'recharts';
 import '../assets/styles/weatherclient.css'
 
 
@@ -10,6 +12,7 @@ import '../assets/styles/weatherclient.css'
 export default function WeatherApiClient(props) {
 
     const [data, setData] = useState(null)
+
 
     // var city = 'non-selected'
     // var lat = 'non-selected'
@@ -26,8 +29,6 @@ export default function WeatherApiClient(props) {
 
     const getData = async () => {
         try {
-        
-
             await fetch(apiUrl).then((resp) => {
 
                 if (!resp.ok) {
@@ -37,6 +38,7 @@ export default function WeatherApiClient(props) {
                 return resp.json();
             }).then(data => (
                 setData(data)
+
             )).catch((e) => { console.log(e) })
 
         } catch (error) {
@@ -47,22 +49,26 @@ export default function WeatherApiClient(props) {
 
 
 
+
+
     useEffect(() => {
 
         const delay = () => new Promise(resolve => setTimeout(resolve, 0.1))
         const r = async () => {
             if (((props.city) && (props.lat) && (props.lng))) {
-                getData()
+                await getData();
             }
         }
         const w = async () => (await delay(), await r())
         w()
-
-
     }, [apiUrl])
 
- 
 
+
+    var dataChart = []
+
+    data ? dataChart = sortData(data) : null
+   
 
 
 
@@ -71,7 +77,7 @@ export default function WeatherApiClient(props) {
     return (
 
         <div id={`weather-${city}`} className="weather-div holder" style={{ width: "100%" }}>
-            <Container fluid>
+            <Container fluid >
                 {/* <Row>
                     <Col> */}
                 <div className="weather-div city">{city}</div>
@@ -80,9 +86,40 @@ export default function WeatherApiClient(props) {
                 {data ? (<div className="weather-div wind-speed">{data.current.wind_speed_10m} {data.current_units.wind_speed_10m}</div>) : null}
                 {data ? (<div className="weather-div wind-speed">Wind direction</div>) : null}
                 {data ? (<div className="weather-div wind-speed"><DdrawWindDir windDirection={data.current.wind_direction_10m} /></div>) : null}
-                {/* {data ? (<div className="weather-div wind-speed">{data.current.cloud_cover} {data.current_units.cloud_cover}</div>) : null} */}
-                {/* </Col>
-                </Row> */}
+                {data ? (<Container fluid className="weather-div wind-speed" style={{ textAlign: 'end', paddingLeft: '0px', paddingRight: '0px' }}>
+                    <a href={`#id-${city.replaceAll(" ", "-")}`} data-bs-toggle="collapse" >More</a>
+                    <div id={`id-${city.replaceAll(" ", "-")}`} className="collapse" style={{ textAlign: 'left', width: "100%" }}>
+                        <ResponsiveContainer width={'100%'} height={200}>
+                            <AreaChart
+                                width={'100%'}
+                                height={50}
+                                data={dataChart ? dataChart : null}
+                                margin={{
+                                    top: 2,
+                                    right: 5,
+                                    left: 5,
+                                    bottom: 2,
+                                }}>
+                                <defs>
+                                    <linearGradient id="colorUv" x1="0" y1="0" x2="0" y2="1">
+                                        {/* <stop offset="35%" stopColor="#ff660e" stopOpacity={0.3} /> */}
+                                        <stop offset="40%" stopColor="#f4ff24" stopOpacity={0.7} />
+                                        <stop offset="90%" stopColor="#0eb3ff" stopOpacity={0.15} />
+                                    </linearGradient>
+                                </defs>
+
+
+                                <CartesianGrid strokeDasharray="2 2" fill="red" fillOpacity={0.01} />
+                                <XAxis dataKey="time" />
+                                <YAxis unit={dataChart[0].unit} />
+                                <Tooltip />
+                                {/* <Legend /> */}
+                                <Area type="monotone" dataKey="temp" stroke="#8884d8" fill="url(#colorUv)" fillOpacity={1}  dot={false} activeDot={{ stroke: 'red', strokeWidth: 1, r: 2 }} />
+                            </AreaChart>
+                        </ResponsiveContainer>
+                    </div>
+
+                </Container>) : null}
             </Container>
 
         </div>
@@ -109,9 +146,7 @@ function DdrawWindDir(props) {
 
     return (
         <svg width={size} height={size} viewBox={`0 0 ${size} ${size}`}>
-            {/* <line x1={halfsize - 5} y1={halfsize} x2={halfsize + 5} y2={halfsize} stroke="black" strokeWidth={1} />
-            <line x1={halfsize} y1={halfsize - 5} x2={halfsize} y2={halfsize + 5} stroke="black" strokeWidth={1} /> */}
-            <circle cx={halfsize} cy={halfsize}  r={halfsize-1} fill="none" strokeWidth={1} stroke="#5d8f5b"></circle>
+            <circle cx={halfsize} cy={halfsize} r={halfsize - 1} fill="none" strokeWidth={1} stroke="#5d8f5b"></circle>
 
             <line x1={lineend.x0} y1={lineend.y0} x2={lineend.x1} y2={lineend.y1} stroke="#055f00" strokeWidth={2} strokeLinecap="butt" />
             <polyline points={`${halfsize},${halfsize} ${lineend.p0x},${lineend.p0y} ${lineend.x1},${lineend.y1} ${lineend.p2x},${lineend.p2y} ${halfsize},${halfsize}`} fill="#0be000" stroke="#055f00" strokeWidth={1} />
@@ -150,14 +185,33 @@ function DrawLine(size, direction) {
     var arrowangle = 45 // The arrow angle at its point in degrees
     const poldist = l * 0.9
 
-    const __tmpangp = ((direction + 180 + (arrowangle/2)) % 360) * Math.PI / 180
-    const __tmpangn = ((direction + 180 - (arrowangle/2)) % 360) * Math.PI / 180
+    const __tmpangp = ((direction + 180 + (arrowangle / 2)) % 360) * Math.PI / 180
+    const __tmpangn = ((direction + 180 - (arrowangle / 2)) % 360) * Math.PI / 180
 
-    const p0x = _x1 + (Math.sin(__tmpangp)* poldist)
-    const p0y =  _y1 - (Math.cos(__tmpangp)* poldist)
-    const p2x = _x1 + (Math.sin(__tmpangn)* poldist)
-    const p2y = _y1 - (Math.cos(__tmpangn)* poldist)
+    const p0x = _x1 + (Math.sin(__tmpangp) * poldist)
+    const p0y = _y1 - (Math.cos(__tmpangp) * poldist)
+    const p2x = _x1 + (Math.sin(__tmpangn) * poldist)
+    const p2y = _y1 - (Math.cos(__tmpangn) * poldist)
 
 
     return { x0: _x0, y0: _y0, x1: _x1, y1: _y1, p0x: p0x, p0y: p0y, p2x: p2x, p2y: p2y }
+}
+
+
+
+
+function sortData(dataC) {
+
+    if (dataC !== null) {
+        var dataChart = []
+        // regroup data for charts
+        for (var i = 0; i < Object.keys(dataC.hourly.temperature_2m).length; i++) {
+            dataChart.push({ time: dataC.hourly.time[i], temp: dataC.hourly.temperature_2m[i], unit: dataC.hourly_units.temperature_2m })
+        }     
+
+        return dataChart
+
+    } else {
+        console.log('')
+    }
 }
