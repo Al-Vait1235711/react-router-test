@@ -14,9 +14,6 @@ export default function WeatherApiClient(props) {
     const [data, setData] = useState(null)
     const [timeNow, setTime] = useState(null)
 
-
-
-
     // var city = 'non-selected'
     // var lat = 'non-selected'
     // var lng = 'non-selected'
@@ -48,10 +45,6 @@ export default function WeatherApiClient(props) {
             console.error(error.message);
         }
     }
-
-
-
-
 
 
     useEffect(() => {
