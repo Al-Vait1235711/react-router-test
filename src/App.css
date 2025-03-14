@@ -141,6 +141,15 @@ a:link, a:visited, a:hover {
   margin-bottom: 20px;
 }
 
+
+.title{
+  margin-right: 5px;
+  display: inline-block;
+}
+.title.notes{
+  font-weight: 400;
+  font-size: 15px;
+}
 .somecol{
   color: #ffd609;
 }

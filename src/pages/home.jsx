@@ -27,7 +27,8 @@ export default function AppHome() {
         <Container fluid>
           <Row>
           <Col sm={12} className="weather-div title-holder">
-              <div>Some Free Circular Progress Bar Examples</div>
+              <div className='title'>Some Free Circular Progress Bar Examples</div>
+              <div className='title notes'>(fully contained React component, generates svg)</div>
             </Col>
           </Row>
 
