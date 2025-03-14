@@ -96,14 +96,14 @@ export default function WeatherApiClient(props) {
                                 data={dataChart ? dataChart : null}
                                 margin={{
                                     top: 2,
-                                    right: 5,
+                                    right: 0,
                                     left: 5,
                                     bottom: 2,
                                 }}>
                                 <defs>
                                     <linearGradient id="colorUv" x1="0" y1="0" x2="0" y2="1">
                                         {/* <stop offset="35%" stopColor="#ff660e" stopOpacity={0.3} /> */}
-                                        <stop offset="40%" stopColor="#f4ff24" stopOpacity={0.7} />
+                                        <stop offset="40%" stopColor="#ffd609" stopOpacity={0.5} />
                                         <stop offset="90%" stopColor="#0eb3ff" stopOpacity={0.15} />
                                     </linearGradient>
                                 </defs>
