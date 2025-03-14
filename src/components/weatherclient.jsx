@@ -231,7 +231,7 @@ function sortData(dataC) {
  */
 function LastUpdateTime(dataT, divid) {
 
-    setInterval(timeDiff, 2000);
+    setInterval(timeDiff, 1000);
     function timeDiff() {
         let timeD = new Date(new Date() - new Date(dataT))
         document.getElementById(divid).innerHTML = timeD.getMinutes() // + ':' + timeD.getSeconds()
