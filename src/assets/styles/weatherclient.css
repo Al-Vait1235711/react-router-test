@@ -63,7 +63,7 @@
 
 .weather-div .lastupdate .updatedago{
     display: inline-block;
-    margin-right: 10px;
+    margin-right: 4px;
     
 }
 .weather-div .lastupdate .updatedon{
@@ -77,8 +77,3 @@
 .weather-div .lastupdate .updatedon::after{
  content: ' )';  
 }
-/* .weather-div .lastupdate .updatedon{
-    display: inline-block;
-    font-weight: 400;
-    
-} */

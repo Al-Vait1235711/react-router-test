@@ -4,6 +4,7 @@ import Col from 'react-bootstrap/Col';
 import LoadingBarCircular from '../components/circularprogressbar';
 import WeatherApiClient from '../components/weatherclient';
 import WeatherApp from '../components/weather';
+import BezierCurves from '../components/bziercurve';
 
 
 
@@ -67,6 +68,11 @@ export default function AppHome() {
                 innerFillCol={'#434343'}
                 fontColor={'#ffffff'} />
               <p style={{ marginTop: "20px" }}>Demo 7 progress bar</p>
+            </Col>
+          </Row>
+          <Row>
+            <Col md={12}>
+              <BezierCurves/>
             </Col>
           </Row>
         </Container>

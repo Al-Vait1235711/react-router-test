@@ -14,7 +14,8 @@ export default function WeatherApiClient(props) {
     const [data, setData] = useState(null)
     const [timeNow, setTime] = useState(null)
 
-    var _apitime = null
+
+
 
     // var city = 'non-selected'
     // var lat = 'non-selected'
@@ -64,20 +65,14 @@ export default function WeatherApiClient(props) {
         }
         const w = async () => (await delay(), await r())
         w()
-        const _time  = new Date()
+        const _time = new Date()
         // data ? setTime(_time) : null
         setTime(_time)
     }, [apiUrl])
 
-
-
     var dataChart = []
-
     data ? dataChart = sortData(data) : null
-    
-
-
-
+    data ? LastUpdateTime(data.current.time, `upd-${city.replaceAll(" ", "-")}`) : null
 
 
     return (
@@ -87,15 +82,16 @@ export default function WeatherApiClient(props) {
                 {/* <Row>
                     <Col> */}
                 <div className="weather-div city">{city}</div>
-                {(timeNow && data) ? (<div className="weather-div lastupdate"><div className="weather-div lastupdate updatedago">Last update : {new Date((new Date(timeNow)-new Date(data.current.time))).getMinutes() } minutes ago.</div><div className="weather-div lastupdate updatedon">{data.current.time.replaceAll('T', ' ')}</div></div>) : (<div className="loader"></div>)}
-                
+                {(timeNow && data) ? (<div className="weather-div lastupdate"><div className="weather-div lastupdate updatedago">Last update <div className="weather-div lastupdate updatedago" id={`upd-${city.replaceAll(" ", "-")}`}></div>minutes ago.</div><div className="weather-div lastupdate updatedon">{data.current.time.replaceAll('T', ' ')}</div></div>) : (<div className="loader"></div>)}
+
+
                 {data ? (<div className="weather-div temperature">Temperature: {data.current.temperature_2m} {data.current_units.temperature_2m}</div>) : null}
                 {data ? (<div className="weather-div wind-speed">Wind speed: {data.current.wind_speed_10m} {data.current_units.wind_speed_10m}</div>) : null}
                 {data ? (<div className="weather-div wind-speed">Wind direction: {data.current.wind_direction_10m}{data.current_units.wind_direction_10m}</div>) : null}
-                {data ? (<div className="weather-div wind-speed"><DdrawWindDir windDirection={data.current.wind_direction_10m} /></div>) : null}
+                {data ? (<div className="weather-div wind-speed"><DrawWindDir windDirection={data.current.wind_direction_10m} /></div>) : null}
                 {data ? (<Container fluid className="weather-div wind-speed" style={{ textAlign: 'end', paddingLeft: '0px', paddingRight: '0px' }}>
                     <a href={`#id-${city.replaceAll(" ", "-")}`} data-bs-toggle="collapse" >More</a>
-                    <div id={`id-${city.replaceAll(" ", "-")}`} className="collapse" style={{ textAlign: 'left', width: "100%", marginLeft:'0px' }}>
+                    <div id={`id-${city.replaceAll(" ", "-")}`} className="collapse" style={{ textAlign: 'left', width: "100%", marginLeft: '0px' }}>
                         <ResponsiveContainer width={'100%'} height={200}>
                             <AreaChart
                                 width={'100%'}
@@ -121,7 +117,7 @@ export default function WeatherApiClient(props) {
                                 <YAxis unit={dataChart[0].unit} />
                                 <Tooltip />
                                 {/* <Legend /> */}
-                                <Area type="monotone" dataKey="Temp" stroke="#8884d8" fill="url(#colorUv)" fillOpacity={1}  dot={false} activeDot={{ stroke: 'red', strokeWidth: 1, r: 2 }} />
+                                <Area type="monotone" dataKey="Temp" stroke="#8884d8" fill="url(#colorUv)" fillOpacity={1} dot={false} activeDot={{ stroke: 'red', strokeWidth: 1, r: 2 }} />
                             </AreaChart>
                         </ResponsiveContainer>
                     </div>
@@ -133,8 +129,12 @@ export default function WeatherApiClient(props) {
     )
 }
 
-
-function DdrawWindDir(props) {
+/**
+ * 
+ * @param {*} props size: size of svg image; windDirection (degrees) 0-360
+ * @returns svg element 
+ */
+function DrawWindDir(props) {
 
     var size = 40
     if (props.size) {
@@ -149,8 +149,6 @@ function DdrawWindDir(props) {
 
     var lineend = DrawLine(size, windDirection)
 
-
-
     return (
         <svg width={size} height={size} viewBox={`0 0 ${size} ${size}`}>
             <circle cx={halfsize} cy={halfsize} r={halfsize - 1} fill="none" strokeWidth={1} stroke="#5d8f5b"></circle>
@@ -164,6 +162,12 @@ function DdrawWindDir(props) {
 
 
 
+/**
+ * 
+ * @param {*} size size of the square svg say 300x300, 
+ * @param {*} direction angle 0-360
+ * @returns object of point values ...
+ */
 function DrawLine(size, direction) {
     const l = size - 5  // gives line length - 3. We draw a line from centre of canvas ? fot the start
 
@@ -206,7 +210,11 @@ function DrawLine(size, direction) {
 
 
 
-
+/**
+ * 
+ * @param {*} dataC  object with API data
+ * @returns array of [{time : time, Temp : temp, unit: measuringUnit}, {}, ...]
+ */
 function sortData(dataC) {
 
     if (dataC !== null) {
@@ -214,11 +222,25 @@ function sortData(dataC) {
         // regroup data for charts
         for (var i = 0; i < Object.keys(dataC.hourly.temperature_2m).length; i++) {
             dataChart.push({ time: dataC.hourly.time[i], Temp: dataC.hourly.temperature_2m[i], unit: dataC.hourly_units.temperature_2m })
-        }     
+        }
 
         return dataChart
 
     } else {
         console.log('')
+    }
+}
+
+/**
+ * @param dataT: time the data was fetched
+ * @param divid: element id whre to add the result
+ * @returns innerHTML with value
+ */
+function LastUpdateTime(dataT, divid) {
+
+    setInterval(timeDiff, 10000);
+    function timeDiff() {
+        let timeD = new Date(new Date() - new Date(dataT))
+        document.getElementById(divid).innerHTML = timeD.getMinutes() // + ':' + timeD.getSeconds()
     }
 }
