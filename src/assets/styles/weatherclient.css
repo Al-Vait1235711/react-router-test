@@ -59,3 +59,26 @@
     font-size: 12px;
     font-weight: 400; padding-left: 5px;
 }
+
+
+.weather-div .lastupdate .updatedago{
+    display: inline-block;
+    margin-right: 10px;
+    
+}
+.weather-div .lastupdate .updatedon{
+    display: inline-block;
+    font-weight: 400;
+    
+}
+.weather-div .lastupdate .updatedon::before{
+    content: '( ';
+}
+.weather-div .lastupdate .updatedon::after{
+ content: ' )';  
+}
+/* .weather-div .lastupdate .updatedon{
+    display: inline-block;
+    font-weight: 400;
+    
+} */

@@ -82,7 +82,7 @@ export default function WeatherApp() {
                 <Row >
                     {cities.map(data => {
                         return (
-                            <Col md={4} key={data.city} className="weather-col">
+                            <Col md={6} key={data.city} className="weather-col">
                                 <WeatherApiClient city={data.city} lat={data.lat} lng={data.lng} />
                             </Col>
                         )
