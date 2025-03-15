@@ -49,7 +49,7 @@ export default function WeatherApiClient(props) {
 
     useEffect(() => {
 
-        const delay = () => new Promise(resolve => setTimeout(resolve, 2000))
+        const delay = () => new Promise(resolve => setTimeout(resolve, 0.1))
         const r = async () => {
             if (((props.city) && (props.lat) && (props.lng))) {
                 await getData();
