@@ -1,0 +1,19 @@
+
+
+.viewport-holder{
+    aspect-ratio: 6/4;
+    background-color: #333333;
+    border-radius: 5px;
+    border: 1px solid rgb(172, 172, 172);
+    box-shadow: 0 0 0 1px rgba(19, 19, 19, 0.553)
+    
+}
+
+.viewport-holder .col-sm-12{
+    height: 100%;
+    width: 100%;
+}
+
+.test {
+    color: #ff0000;
+}

@@ -4,7 +4,7 @@ import Col from "react-bootstrap/esm/Col"
 import { Collapse } from 'bootstrap'
 import { useEffect, useState } from "react"
 import { LineChart, Line, XAxis, YAxis, AreaChart, Area, CartesianGrid, Tooltip, Legend, ResponsiveContainer } from 'recharts';
-import '../assets/styles/weatherclient.css'
+import './weatherclient.css'
 
 
 
