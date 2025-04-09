@@ -101,7 +101,7 @@ function DrawItems(props) {
                             // console.log(it.start)
                             return (
                                 <mesh key={idx}>
-                                    <CLine2 points={[it.start, it.start]} lineWidth={10} color={'blue'} />
+                                    <CLine2 points={[it.start, it.start]} lineWidth={5} color={'blue'} />
                                 </mesh>
                             )
                         })
@@ -130,9 +130,9 @@ function CLine2(props) {
 
     const geometry = new LineGeometry().setPositions(line);
     const material = new LineMaterial();
-    if (!props.linewidth) {
+    if (!props.lineWidth) {
         material.linewidth = 0.002;
-    } else { material.linewidth = props.lineWidth * 0.01; };
+    } else { material.linewidth = props.lineWidth * 0.001; };
     if (!props.color) {
         material.color = new THREE.Color('#ff0000');
     } else { material.color = new THREE.Color(props.color); };
