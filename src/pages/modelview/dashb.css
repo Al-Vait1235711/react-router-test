@@ -39,7 +39,7 @@ max-height: 17px;
 .model-view-size1 {
     display: grid;
     aspect-ratio: 1.6;
-    background-color: #242424de;
+    background-color: #000000c9;
     border: 1px solid rgb(0, 0, 178);
     border-radius: 3px;
     position: relative
@@ -63,4 +63,9 @@ max-height: 17px;
     margin-right: 0px;
     
     
+}
+
+.test{
+
+    color: #ffffff;
 }

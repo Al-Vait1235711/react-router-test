@@ -1,5 +1,5 @@
 import { Container, Row, Col } from "react-bootstrap";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import './modelviewp.css';
 import * as THREE from 'three';
 import { LineGeometry } from 'three/addons/lines/LineGeometry.js';
@@ -9,6 +9,7 @@ import { PointGeometry, CircleGeometry, CustPoint } from "./geometry";
 extend({ OrbitControls, });
 import { GUIm } from "./dashboard";
 import data from '../../test/test1.json';
+import { Line } from '@react-three/drei'
 
 
 
@@ -24,6 +25,7 @@ export default function ModelViewPort() {
     const testobjl = { type: 'line', start: { x: 10, y: 130, z: 3 }, end: { x: 100, y: 13, z: 4 } }
     const [select, setSelect] = useState(null)
     const dataView = getLimits(data)
+    const myRef = useRef()
 
     useEffect(() => {
         const gui = new GUIm('gui')
@@ -33,7 +35,7 @@ export default function ModelViewPort() {
 
     const handleClick = (e) => {
         if (e != null) {
-            setSelect(testdat[e])
+            setSelect(data[e])
         }
     }
 
@@ -58,12 +60,16 @@ export default function ModelViewPort() {
                             <directionalLight position={[0, 0, 5]} color="white" />
                             <directionalLight position={[-1000, -1000, -1000]} color="white" />
                             <directionalLight position={[1000, 1000, 1000]} color="white" />
-                            <ControlsOrbit enableRotate={false} />
-                            <CLine2 color={'magenta'} />
-                            <CustPoint test />
-                            <mesh scale={[scXYZ[0], scXYZ[1], 1]} position={[scXYZ[0] * (-(dataView.minw + dataView.maxw)) / 2, scXYZ[1] * (-(dataView.minh + dataView.maxh)) / 2, 0]}>
+                            <ControlsOrbit enableRotate={true} />
+                            {/* <CLine2 color={'magenta'} /> */}
+                            <mesh onDoubleClick={(e) => console.log('double click')} onPointerOver={(e) => { console.log('PointerOver') }} >
+                                <CustPoint test /></mesh>
+                            <mesh ref={myRef} scale={[scXYZ[0], scXYZ[1], 1]} position={[scXYZ[0] * (-(dataView.minw + dataView.maxw)) / 2, scXYZ[1] * (-(dataView.minh + dataView.maxh)) / 2, 0]}>
                                 <DrawItems data={data} handleClick={handleClick} />
                             </mesh>
+                            {/* <mesh onPointerOver={(e) => { console.log('PointerOver') }} >
+                                <CLine2 points={[[0,0,0],[1,2,0]]}/>
+                            </mesh> */}
                         </Canvas>
                     </div>
                 </div>
@@ -80,7 +86,7 @@ function DrawItems(props) {
 
     const [hovered, setHovered] = useState({ key: null, status: false })
     const [selected, setSelected] = useState(null)
-    // console.log(props.data[selected])
+    console.log(selected)
 
     return (
 
@@ -92,7 +98,7 @@ function DrawItems(props) {
                             <mesh key={index}
                                 onPointerOver={(event) => { setHovered({ key: index, status: true }) }}
                                 onPointerOut={(event) => { setHovered({ key: null, status: false }) }} onClick={(event => { setSelected(index), props.handleClick(index) })}>
-                                <CLine2 points={[item.start, item.end]} lineWidth={hovered.key == index || selected == index ? 3 : 1} color={hovered.key == index || selected == index ? 'white' : `${getColor(item)}`} />
+                                <Line points={[item.start, item.end]} lineWidth={hovered.key == index || selected == index ? 3 : 1} color={hovered.key == index || selected == index ? 'white' : `${getColor(item)}`} />
                             </mesh>
                         )
                     } else if (item.lwpolyline) {
@@ -101,18 +107,18 @@ function DrawItems(props) {
                             // console.log(it.start)
                             return (
                                 <mesh key={idx}>
-                                    <CLine2 points={[it.start, it.start]} lineWidth={5} color={'blue'} />
+                                    <Line points={[it.start, it.start]} lineWidth={10} color={'blue'} />
                                 </mesh>
                             )
                         })
                     }
                 })}
             </mesh>
-            <mesh position={[-10, -10, 0]}>
+            {/* <mesh position={[-10, -10, 0]}>
                 <mesh position={[10, 10, 0]}>
                     <CLine2 points={[[-1, -1, 0], [-1, 1, 0], [1, 1, 0], [1, -1, 0], [-1, -1, 0]]} lineWidth={0.3} />
                 </mesh>
-            </mesh>
+            </mesh> */}
 
         </>
     )
@@ -124,20 +130,22 @@ function CLine2(props) {
 
     var line = [];
     if (props.points) {
-        line = [...props.points[0],...props.points[1] ]
-        
+        line = [...props.points[0], ...props.points[1]]
+
     } else return
 
     const geometry = new LineGeometry().setPositions(line);
     const material = new LineMaterial();
     if (!props.lineWidth) {
         material.linewidth = 0.002;
-    } else { material.linewidth = props.lineWidth * 0.0012; };
+    } else { material.linewidth = props.lineWidth * 0.0008; };
     if (!props.color) {
         material.color = new THREE.Color('#ff0000');
     } else { material.color = new THREE.Color(props.color); };
     return (
-        <mesh geometry={geometry} material={material}></mesh>)
+        <group>
+            <mesh {...props} geometry={geometry} material={material}></mesh>
+        </group>)
 }
 
 

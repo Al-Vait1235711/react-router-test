@@ -1,5 +1,5 @@
 import { LineGeometry } from 'three/addons/lines/LineGeometry.js';
-import {  LineMaterial} from 'three-stdlib';
+import {  LineMaterial, Line2} from 'three-stdlib';
 import { Color } from 'three';
 
 
