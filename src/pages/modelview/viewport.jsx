@@ -34,7 +34,7 @@ export default function ModelViewPort() {
                         <directionalLight position={[0, 0, 5]} color="white" />
                         <directionalLight position={[-1000, -1000, -1000]} color="white" />
                         <directionalLight position={[1000, 1000, 1000]} color="white" />
-                        <ControlsOrbit enableRotate={true} />
+                        <ControlsOrbit enableRotate={false} />
                         <CLine2 color={'magenta'} />
                         <CustPoint test/>
                     </Canvas>
