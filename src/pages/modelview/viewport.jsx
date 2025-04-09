@@ -132,7 +132,7 @@ function CLine2(props) {
     const material = new LineMaterial();
     if (!props.lineWidth) {
         material.linewidth = 0.002;
-    } else { material.linewidth = props.lineWidth * 0.001; };
+    } else { material.linewidth = props.lineWidth * 0.0012; };
     if (!props.color) {
         material.color = new THREE.Color('#ff0000');
     } else { material.color = new THREE.Color(props.color); };
