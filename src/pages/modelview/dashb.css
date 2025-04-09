@@ -1,0 +1,66 @@
+
+.gui-cont{
+    color: #ffffff;
+    background-color: #03030354;
+    opacity: 1;
+    font-size: 12px;
+    font-weight: 400;
+    padding: 1px;
+    border: solid 1px rgba(255, 255, 255, 0.546);
+    text-align: left;
+    min-width: 190px;
+}
+
+.gui-cont .frow input{
+    background-color: rgb(50, 52, 65);
+    color: rgb(255, 255, 255);
+    /* width: 70px; */
+    border: 0.5px solid rgb(150, 150, 150);
+    max-width: 100px;
+}
+
+.gui-cont .frow{
+    display: grid;
+    grid-template-columns: 45% auto;
+    border: 1px solid rgb(81, 81, 81);
+    padding-left: 3px;
+    text-align: left;
+    /* margin-right: 3px; */
+}
+.gui-cont .frow input.frowcol{
+max-height: 17px;
+}
+.gui-cont .title{
+    padding-left: 3px;
+    margin-right: 3px;
+    font-weight: 500;
+}
+
+.model-view-size1 {
+    display: grid;
+    aspect-ratio: 1.6;
+    background-color: #242424de;
+    border: 1px solid rgb(0, 0, 178);
+    border-radius: 3px;
+    position: relative
+    
+}
+
+
+.model-view-size1 .layer2, .model-view-size1 .layer1  {
+    grid-column: 1;
+    grid-row: 1;
+}
+.model-view-size1 .layer2{
+    z-index: 1;
+    position: absolute;
+    max-width: 200px;
+    height:fit-content;
+    top: 0;
+    right: 0;
+    opacity: 0.85;
+    overflow: hidden;
+    margin-right: 0px;
+    
+    
+}

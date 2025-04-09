@@ -1,4 +1,5 @@
 import { Container, Row, Col } from "react-bootstrap";
+import { useState, useEffect } from "react";
 import './modelviewp.css';
 import * as THREE from 'three';
 import { LineGeometry } from 'three/addons/lines/LineGeometry.js';
@@ -6,6 +7,7 @@ import { Canvas, extend, useThree } from '@react-three/fiber';
 import { OrbitControls, LineMaterial, mergeBufferGeometries } from 'three-stdlib';
 import { PointGeometry, CircleGeometry, CustPoint } from "./geometry";
 extend({ OrbitControls, });
+import { GUIm } from "./dashboard";
 import data from '../../test/test1.json';
 
 
@@ -13,7 +15,27 @@ import data from '../../test/test1.json';
 
 
 
+
 export default function ModelViewPort() {
+
+
+    const scXYZ = [0.1, 0.1, 0.1]
+    const testobjp = { type: 'point', x: 10, y: 130, z: 3 }
+    const testobjl = { type: 'line', start: { x: 10, y: 130, z: 3 }, end: { x: 100, y: 13, z: 4 } }
+    const [select, setSelect] = useState(null)
+    const dataView = getLimits(data)
+
+    useEffect(() => {
+        const gui = new GUIm('gui')
+        gui.update(select)
+    }, [select])
+
+
+    const handleClick = (e) => {
+        if (e != null) {
+            setSelect(testdat[e])
+        }
+    }
 
 
     return (
@@ -28,16 +50,22 @@ export default function ModelViewPort() {
             </Container>
             <Container fluid style={{ padding: '0px' }}>
 
-                <div className="viewport-holder">
-                    <Canvas orthographic camera={{ camera: CustCamera, zoom: 10, position: [0, 0, 500] }}>
-                        <ambientLight intensity={0.1} />
-                        <directionalLight position={[0, 0, 5]} color="white" />
-                        <directionalLight position={[-1000, -1000, -1000]} color="white" />
-                        <directionalLight position={[1000, 1000, 1000]} color="white" />
-                        <ControlsOrbit enableRotate={false} />
-                        <CLine2 color={'magenta'} />
-                        <CustPoint test/>
-                    </Canvas>
+                <div className="model-view-size1">
+                    <div id='gui' className='layer2' ></div>
+                    <div className='layer1' >
+                        <Canvas orthographic camera={{ camera: CustCamera, zoom: 10, position: [0, 0, 500] }}>
+                            <ambientLight intensity={0.1} />
+                            <directionalLight position={[0, 0, 5]} color="white" />
+                            <directionalLight position={[-1000, -1000, -1000]} color="white" />
+                            <directionalLight position={[1000, 1000, 1000]} color="white" />
+                            <ControlsOrbit enableRotate={false} />
+                            <CLine2 color={'magenta'} />
+                            <CustPoint test />
+                            <mesh scale={[scXYZ[0], scXYZ[1], 1]} position={[scXYZ[0] * (-(dataView.minw + dataView.maxw)) / 2, scXYZ[1] * (-(dataView.minh + dataView.maxh)) / 2, 0]}>
+                                <DrawItems data={data} handleClick={handleClick} />
+                            </mesh>
+                        </Canvas>
+                    </div>
                 </div>
             </Container>
         </>
@@ -50,20 +78,61 @@ export default function ModelViewPort() {
 function DrawItems(props) {
 
 
+    const [hovered, setHovered] = useState({ key: null, status: false })
+    const [selected, setSelected] = useState(null)
+    // console.log(props.data[selected])
 
+    return (
 
-    return
+        <>
+            <mesh position={[0, 0, 0]}>
+                {props.data.map((item, index) => {
+                    if (item.type === 'line') {
+                        return (
+                            <mesh key={index}
+                                onPointerOver={(event) => { setHovered({ key: index, status: true }) }}
+                                onPointerOut={(event) => { setHovered({ key: null, status: false }) }} onClick={(event => { setSelected(index), props.handleClick(index) })}>
+                                <CLine2 points={[item.start, item.end]} lineWidth={hovered.key == index || selected == index ? 3 : 1} color={hovered.key == index || selected == index ? 'white' : `${getColor(item)}`} />
+                            </mesh>
+                        )
+                    } else if (item.lwpolyline) {
 
+                        item.lwpolyline.map((it, idx) => {
+                            // console.log(it.start)
+                            return (
+                                <mesh key={idx}>
+                                    <CLine2 points={[it.start, it.start]} lineWidth={10} color={'blue'} />
+                                </mesh>
+                            )
+                        })
+                    }
+                })}
+            </mesh>
+            <mesh position={[-10, -10, 0]}>
+                <mesh position={[10, 10, 0]}>
+                    <CLine2 points={[[-1, -1, 0], [-1, 1, 0], [1, 1, 0], [1, -1, 0], [-1, -1, 0]]} lineWidth={0.3} />
+                </mesh>
+            </mesh>
+
+        </>
+    )
 }
+
+
 
 function CLine2(props) {
 
-    const testLine = [-1, -1, 0, 2, 2, 0];
-    const geometry = new LineGeometry().setPositions(testLine);
+    var line = [];
+    if (props.points) {
+        line = [...props.points[0],...props.points[1] ]
+        
+    } else return
+
+    const geometry = new LineGeometry().setPositions(line);
     const material = new LineMaterial();
     if (!props.linewidth) {
         material.linewidth = 0.002;
-    } else { material.linewidth = props.linewidth * 0.001; };
+    } else { material.linewidth = props.lineWidth * 0.01; };
     if (!props.color) {
         material.color = new THREE.Color('#ff0000');
     } else { material.color = new THREE.Color(props.color); };
@@ -84,3 +153,74 @@ const CustCamera = (props) => {
     const mycamera = new THREE.OrthographicCamera(width / -2, width / 2, height / 2, height / -2, 0.1, 500)
     return mycamera
 }
+
+
+
+const getLimits = (data) => {
+    // const [bbox, setBbox] = useState({ minh:null, maxh:null, minw:null, maxw:null})
+    let bbox = { minh: 10e6, maxh: -10e6, minw: 10e6, maxw: -10e6 }
+    // const values = Math.max(null, Object.values(data))
+    for (let i = 0; i < data.length; i++) {
+
+        if (data[i].type === 'line') {
+            if (data[i].start[0] < bbox.minw) {
+                bbox.minw = data[i].start[0]
+            }
+            else if (data[i].start[0] > bbox.maxw) {
+                bbox.maxw = data[i].start[0]
+            }
+            if (data[i].start[1] < bbox.minh) {
+                bbox.minh = data[i].start[1]
+            }
+            else if (data[i].start[1] > bbox.maxh) {
+                bbox.maxh = data[i].start[1]
+            }
+            if (data[i].end[0] < bbox.minw) {
+                bbox.minw = data[i].start[0]
+            }
+            else if (data[i].end[0] > bbox.maxw) {
+                bbox.maxw = data[i].start[0]
+            }
+            if (data[i].end[1] < bbox.minh) {
+                bbox.minh = data[i].start[1]
+            }
+            else if (data[i].end[1] > bbox.maxh) {
+                bbox.maxh = data[i].start[1]
+            }
+        }
+    }
+
+    // console.log(bbox)
+    return bbox
+
+
+}
+
+
+
+const ACI = {
+    251: 'red',
+    252: 'yellow',
+    253: '#05f501',
+    254: '#01c9f5',
+    255: '#0115f5',
+    256: '#f501f5',
+    257: '#000000',
+    258: '#535353',
+    259: '#b0b0b0',
+}
+
+/**
+ * Converts ACI color to RGB
+ */
+const getColor = (data) => {
+    /**
+     * Converts ACI color to RGB
+     */
+    if (data && Object.keys(ACI).includes(data.color.toString())) {
+        return ACI[data.color]
+    }
+    return data
+}
+
+
