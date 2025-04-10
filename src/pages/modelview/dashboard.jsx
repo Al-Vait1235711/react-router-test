@@ -60,7 +60,7 @@ class GUIm {
             <div class='frow'>&#916 Y: <input type='number' readonly value=${this.round(this.obj.end[1]-this.obj.start[1],3)}></div>
             <div class='frow'>&#916 Z: <input type='number' readonly value=${this.round(this.obj.end[2]-this.obj.start[2],3)}></div>
             <div class='title'>Layer</div>
-            <div class='frow'>Nayer name: <input type='text' readonly value=${this.obj.layer}></div>
+            <div class='frow'>Layer name: <input type='text' readonly value=${this.obj.layer}></div>
             <div class='frow'>ACI Color: <input class='frowcol' type='color' disabled value=${this.getColor(this.obj.color)}></div>
             </div>`
         }
