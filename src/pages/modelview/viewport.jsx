@@ -10,6 +10,8 @@ extend({ OrbitControls, });
 import { GUIm } from "./dashboard";
 import data from '../../test/test1.json';
 import { Line } from '@react-three/drei'
+import { ReadDXF, printFile } from "./dxf/handledxf";
+import testfile from './test/testfile.txt'
 
 
 
@@ -18,6 +20,58 @@ import { Line } from '@react-three/drei'
 
 
 export default function ModelViewPort() {
+
+
+    const [fileForm, setFileForm] = useState({
+        document1: { name: '', url: '', size: 0, lastmod: '' },
+    })
+    const [dxfData, setDfxData] = useState(null)
+
+
+    const fileTypes = [
+        //list of acceptable file extentions if a form field validation failed 
+        'dxf', 'dwg',
+        ''
+    ]
+
+    function validFileType(file) {
+        const fileExt = file.name.split('.').pop()
+        return fileTypes.includes(fileExt)
+    }
+
+
+    const handleFileField = (e) => {
+        // Add extra file extension validation 
+        if (!validFileType(e.target.files[0])) {
+            //This resets form data for the field to prevent error in certain conditions
+            setFileForm({
+                ...fileForm, [e.target.name]: {
+                    name: '',
+                    url: '',
+                    size: '',
+                    lastmod: ''
+                }
+            })
+
+            return document.getElementById(`${e.target.name}`).innerText = 'Upload dxf file only!'  //Adds warning text above the field if attemted to upload wrong format file 
+        }
+
+        setFileForm({
+            ...fileForm, [e.target.name]: {
+                name: e.target.files[0].name,
+                url: e.target.value,
+                size: e.target.files[0].size,
+                lastmod: e.target.files[0].lastModifiedDate
+            }
+        })
+
+        //Reads dxf data and puts into memory
+        setDfxData(new ReadDXF().FileR(e.target.files[0])) 
+        console.log(dxfData)
+        //lastModifiedDate
+        return document.getElementById(`${e.target.name}`).innerText = ''   //Removes warning text 
+
+    }
 
 
     const scXYZ = [0.1, 0.1, 0.1]
@@ -74,6 +128,20 @@ export default function ModelViewPort() {
                     </div>
                 </div>
             </Container>
+            <Container>
+                <Row>
+                    <Col md={12}>
+                        <form>
+                            <div className="mb-3 ">
+                                <label className="form-label app-form-label mt-1" >Select a survey file</label>
+                                <div className="form-validation-error" id="document1"></div>
+                                <input className='form-control field-border customFileInput' id='id_document1' accept="dxf/.dxf" title="Document" name="document1" type="file" placeholder="Select survey file" value={fileForm.document1.url} onChange={handleFileField} />
+                            </div>
+                        </form>
+
+                    </Col>
+                </Row>
+            </Container>
         </>
     )
 }
@@ -86,7 +154,7 @@ function DrawItems(props) {
 
     const [hovered, setHovered] = useState({ key: null, status: false })
     const [selected, setSelected] = useState(null)
-    console.log(selected)
+    // console.log(selected)
 
     return (
 
@@ -98,7 +166,8 @@ function DrawItems(props) {
                             <mesh key={index}
                                 onPointerOver={(event) => { setHovered({ key: index, status: true }) }}
                                 onPointerOut={(event) => { setHovered({ key: null, status: false }) }} onClick={(event => { setSelected(index), props.handleClick(index) })}>
-                                <Line points={[item.start, item.end]} lineWidth={hovered.key == index || selected == index ? 3 : 1} color={hovered.key == index || selected == index ? 'white' : `${getColor(item)}`} />
+                                <Line points={[item.start, item.end]} lineWidth={hovered.key == index || selected == index ? 3 : 1} color={hovered.key == index || selected == index ? 'white' : `${getColor(item)}`}/>
+                                <Line points={[item.start, item.end]} lineWidth={5}  transparent={true} opacity={0}/>
                             </mesh>
                         )
                     } else if (item.lwpolyline) {
